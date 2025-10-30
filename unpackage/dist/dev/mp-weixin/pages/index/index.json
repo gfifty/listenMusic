@@ -1,0 +1,7 @@
+{
+  "navigationBarTitleText": "uni-app",
+  "usingComponents": {
+    "mini-player": "../../components/miniPlayer/miniPlayer",
+    "page-head": "../../components/pageHead/pageHead"
+  }
+}

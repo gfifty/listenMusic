@@ -1,0 +1,14 @@
+
+.selectres{
+		width: 25%;
+		display: inline-block;
+		background-color: #F2F2F2;
+		height: 90rpx;
+		border: 0px solid black;
+		text-align: center;
+		line-height: 90rpx;
+		border-radius: 0;
+}
+.active{
+		background-color: #aaaaaa;
+}

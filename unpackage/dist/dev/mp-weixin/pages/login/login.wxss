@@ -1,0 +1,21 @@
+
+page{
+	background-color: #d8d8d8;
+}
+.titile{
+	margin: 10% 0 10% 43%;
+	font-size: 60rpx;
+}
+.login_button > button{
+	width:30%;
+	display: inline-block;
+	justify-content: space-around;
+	margin-left: 13%;
+}
+.inputArea{
+	margin: 20rpx 0 10rpx 10%;
+}
+.inputArea > input{
+	margin: 0rpx 100rpx 40rpx 0;
+	border-bottom: 1px solid #aaaaaa;
+}

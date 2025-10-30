@@ -1,0 +1,20 @@
+
+.friend{
+	font-size: 50rpx;	
+	text-align: center;
+	margin: 100rpx 0 30rpx 260rpx;
+}
+.one{
+		height: 120rpx;
+}
+.header-image{
+	display: inline-block;
+	width: 100rpx;
+	height: 100rpx;
+}
+.one{
+	display: block;
+}
+.friendtext{
+	margin-left: 50rpx;
+}

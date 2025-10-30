@@ -1,0 +1,36 @@
+
+.grid {
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 20rpx;
+}
+.item {
+  width: 33%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 50rpx;
+}
+.circle {
+  width: 185rpx;
+  height: 185rpx;
+  border: 1px solid #ddd;
+}
+.item-text {
+  margin-top: 10rpx;
+  font-size: smaller;
+  width: 185rpx;
+  height: 35rpx;
+  white-space: initial;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.item-num{
+	margin-top: 10rpx;
+	font-size: smaller;
+	width: 185rpx;
+	height: 35rpx;
+	white-space: initial;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}

@@ -1,0 +1,1 @@
+<view><uni-list u-s="{{['d']}}" u-i="53a28651-0" bind:__l="__l"><uni-list-item wx:for="{{a}}" wx:for-item="p" wx:key="c" u-s="{{['d']}}" bindtap="{{p.d}}" u-i="{{p.e}}" bind:__l="__l"><view class="firstMusic"><image src="{{p.a}}" mode="aspectFit" class="cover"></image><text class="namesingle">{{p.b}}</text></view></uni-list-item></uni-list></view>

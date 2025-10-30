@@ -1,0 +1,1 @@
+<view class="grid"><view wx:for="{{a}}" wx:for-item="p" wx:key="d" class="item" bindtap="{{p.e}}"><image src="{{p.a}}" mode="aspectFit" class="circle"></image><text class="item-text">{{p.b}}</text><text class="item-num">共{{p.c}}首</text></view></view>

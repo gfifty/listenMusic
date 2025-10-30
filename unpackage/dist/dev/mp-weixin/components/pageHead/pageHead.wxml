@@ -1,0 +1,1 @@
+<view class="header"><view class="logo"><view class="fas fa-music icon-logo"></view><label>My Music</label></view><view class="search-bar"><view class="fas fa-search icon-search" bindtap="{{a}}"></view><input type="text" placeholder="搜索音乐..." value="{{b}}" bindinput="{{c}}"/></view></view>

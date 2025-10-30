@@ -1,0 +1,136 @@
+{
+	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
+		{
+			"path": "pages/index/index",
+			"style": {
+				"navigationBarTitleText": "uni-app"
+			}
+		},
+		{
+			"path" : "pages/mine/mine",
+			"style" : 
+			{
+				"navigationBarTitleText" : "",
+				"enablePullDownRefresh" : false
+			}
+		},
+		{
+			"path" : "pages/trends/trends",
+			"style" : 
+			{
+				"navigationBarTitleText" : "",
+				"enablePullDownRefresh" : false
+			}
+		},
+		{
+			"path" : "pages/attention/attention",
+			"style" : 
+			{
+				"navigationBarTitleText" : "",
+				"enablePullDownRefresh" : false
+			}
+		},
+		{
+			"path": "pages/search/search",
+			"style": {
+				"navigationBarTextStyle": "black",
+				"enablePullDownRefresh": true
+			}
+		},
+		{
+			"path" : "pages/play/play",
+			"style" : 
+			{
+				"navigationBarTitleText" : ""
+			}
+		},
+		{
+			"path" : "pages/login/login",
+			"style" : 
+			{
+				"navigationBarTitleText" : "",
+				"enablePullDownRefresh" : false
+			}
+		},
+		{
+			"path" : "pages/register/register",
+			"style" : 
+			{
+				"navigationBarTitleText" : "",
+				"enablePullDownRefresh" : false
+			}
+		},
+		{
+			"path" : "pages/typeShow/typeShow",
+			"style" : 
+			{
+				"navigationBarTitleText" : "",
+				"enablePullDownRefresh" : false
+			}
+		},
+		{
+			"path" : "pages/singlistDetail/singlistDetail",
+			"style" : 
+			{
+				"navigationBarTitleText" : "",
+				"enablePullDownRefresh" : false
+			}
+		},
+		{
+			"path" : "pages/changehuman/changehuman",
+			"style" : 
+			{
+				"navigationBarTitleText" : "",
+				"enablePullDownRefresh" : false
+			}
+		},
+		{
+			"path" : "pages/albumDetail/albumDetail",
+			"style" : 
+			{
+				"navigationBarTitleText" : "",
+				"enablePullDownRefresh" : false
+			}
+		}
+    ],
+	"tabBar": {
+		"backgroundColor": "#ffffff",
+		"selectedColor": "blue",
+		"iconWidth": "42rpx",
+		"borderStyle": "white",
+		"list": [
+			{
+				"pagePath": "pages/index/index",
+				"iconPath": "/static/组件/found.png",
+				"selectedIconPath": "/static/组件/found.png",
+				"text": "发现"
+			},
+			{
+				"iconPath": "static/组件/mine.png",
+				"selectedIconPath": "static/组件/mine.png",
+				"pagePath": "pages/mine/mine",
+				"text": "我的"
+			},
+			{
+				"pagePath": "pages/attention/attention",
+				"selectedIconPath": "static/组件/attention.png",
+				"iconPath": "static/组件/attention.png",
+				"text": "关注"
+			},
+			{
+				"pagePath": "pages/trends/trends",
+				"selectedIconPath": "static/组件/trends.png",
+				"iconPath": "static/组件/trends.png",
+
+				"text": "历史记录"
+			}
+		]
+	},
+	"globalStyle": {
+		"navigationBarTextStyle": "black",
+		"navigationBarTitleText": "uni-app",
+		"navigationBarBackgroundColor": "#F8F8F8",
+		"backgroundColor": "#F8F8F8"
+	},
+	"uniIdRouter": {}
+}

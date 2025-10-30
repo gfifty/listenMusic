@@ -1,0 +1,1 @@
+<view class="resshow"><view class="bigfont" placeholder="请输入搜索内容">{{a}}</view><label wx:if="{{b}}" class="smallfont">的搜索结果如下：</label><view wx:else>请输入搜索内容进行搜索。</view></view>

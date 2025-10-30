@@ -1,0 +1,170 @@
+"use strict";
+const common_vendor = require("../common/vendor.js");
+const usePlayerStore = common_vendor.defineStore("player", {
+  state: () => ({
+    backgroundAudioManager: null,
+    index: 0,
+    currentTrack: null,
+    // 当前播放的歌曲对象
+    playlist: [],
+    // 播放列表
+    playing: false,
+    // 播放状态
+    progress: 0,
+    // 当前播放进度 (秒)
+    duration: 0,
+    // 总时长 (秒)
+    mode: "loop",
+    // 播放模式 loop | single | shuffle
+    showLyrics: false,
+    // 是否显示歌词
+    lyrics: [],
+    // 当前歌词
+    currentLyricIndex: 0
+    // 当前歌词行
+  }),
+  actions: {
+    initAudioManager() {
+      if (!this.backgroundAudioManager) {
+        this.backgroundAudioManager = common_vendor.index.getBackgroundAudioManager();
+        this.backgroundAudioManager.onPlay(() => {
+          this.playing = true;
+        });
+        this.backgroundAudioManager.onPause(() => {
+          this.playing = false;
+        });
+        this.backgroundAudioManager.onStop(() => {
+          this.playing = false;
+        });
+        this.backgroundAudioManager.onEnded(() => {
+          this.next();
+        });
+        this.backgroundAudioManager.onTimeUpdate(() => {
+          this.progress = this.backgroundAudioManager.currentTime;
+          this.duration = this.backgroundAudioManager.duration;
+          this.updateLyricIndex();
+        });
+      }
+    },
+    /**
+     * 播放指定歌曲
+     */
+    playTrack(track) {
+      this.initAudioManager();
+      this.currentTrack = track;
+      this.backgroundAudioManager.src = track.musicUrl;
+      this.backgroundAudioManager.title = track.musicName;
+      this.backgroundAudioManager.singer = track.singerName;
+      this.backgroundAudioManager.coverImgUrl = track.cover;
+      this.playing = true;
+    },
+    /**
+     * 继续播放
+     */
+    play() {
+      if (this.backgroundAudioManager) {
+        this.backgroundAudioManager.play();
+      }
+    },
+    /**
+     * 暂停播放
+     */
+    pause() {
+      if (this.backgroundAudioManager) {
+        this.backgroundAudioManager.pause();
+      }
+    },
+    /**
+     * 切换播放/暂停状态
+     */
+    togglePlay() {
+      this.playing ? this.pause() : this.play();
+    },
+    /**
+     * 播放下一首歌曲
+     * 根据当前播放模式决定下一首歌曲
+     */
+    next() {
+      if (this.playlist.length === 0)
+        return;
+      const idx = this.playlist.findIndex((t) => t.id === this.currentTrack.id);
+      let nextIdx = idx + 1;
+      if (this.mode === "shuffle") {
+        nextIdx = Math.floor(Math.random() * this.playlist.length);
+      } else if (this.mode === "single") {
+        nextIdx = idx;
+      } else if (nextIdx >= this.playlist.length) {
+        nextIdx = 0;
+      }
+      this.playTrack(this.playlist[nextIdx]);
+    },
+    /**
+     * 播放上一首歌曲
+     */
+    prev() {
+      if (this.playlist.length === 0)
+        return;
+      const idx = this.playlist.findIndex((t) => t.id === this.currentTrack.id);
+      let prevIdx = idx - 1;
+      if (prevIdx < 0)
+        prevIdx = this.playlist.length - 1;
+      this.playTrack(this.playlist[prevIdx]);
+    },
+    /**
+     * 跳转到指定播放位置
+     */
+    seek(position) {
+      if (this.backgroundAudioManager) {
+        this.backgroundAudioManager.seek(position);
+        this.progress = position;
+      }
+    },
+    /**
+     * 设置播放列表并开始播放
+     */
+    setPlaylist(list, startIndex) {
+      this.playlist = list;
+      this.index = startIndex;
+      this.playTrack(list[startIndex]);
+    },
+    /**
+     * 加载歌词文本并解析
+     */
+    loadLyrics(lyricText) {
+      this.lyrics = this.parseLyrics(lyricText);
+      this.currentLyricIndex = 0;
+    },
+    /**
+     * 解析歌词文本为结构化数据
+     */
+    parseLyrics(text) {
+      const lines = text.split("\n");
+      return lines.map((line) => {
+        const match = line.match(/\[(\d+):(\d+).(\d+)\](.*)/);
+        if (match) {
+          const min = parseInt(match[1]);
+          const sec = parseInt(match[2]);
+          const ms = parseInt(match[3]);
+          return { time: min * 60 + sec + ms / 100, text: match[4] };
+        }
+        return null;
+      }).filter(Boolean);
+    },
+    /**
+     * 根据当前播放进度更新歌词索引
+     * 找到当前应该显示的歌词行
+     */
+    updateLyricIndex() {
+      if (!this.lyrics.length)
+        return;
+      const current = this.progress;
+      for (let i = 0; i < this.lyrics.length; i++) {
+        if (current < this.lyrics[i].time) {
+          this.currentLyricIndex = Math.max(0, i - 1);
+          break;
+        }
+      }
+    }
+  }
+});
+exports.usePlayerStore = usePlayerStore;

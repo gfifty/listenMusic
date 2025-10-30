@@ -1,0 +1,12 @@
+{
+  "navigationBarTextStyle": "black",
+  "enablePullDownRefresh": true,
+  "usingComponents": {
+    "searchresult": "../../components/searchResult/searchResult",
+    "single": "../../components/singlePage/singlePage",
+    "singer": "../../components/singerPage/singerPage",
+    "playlist": "../../components/playlistPage/playlistPage",
+    "album": "../../components/albumPage/albumPage",
+    "page-head": "../../components/pageHead/pageHead"
+  }
+}
