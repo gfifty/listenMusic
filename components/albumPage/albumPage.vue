@@ -1,3 +1,4 @@
+<!-- 该组件用于实现专辑页面的展示 -->
 <template>
       <view class="grid">
         <view class="item" v-for="(p, index) in searchResults" :key="index" @click="openSinglist(p.albumId)">
@@ -12,7 +13,7 @@
 import { onMounted, ref } from 'vue';
 import {useSearchresStore} from '/store/data.js'
 
-const useSearchRESStore = useSearchresStore()
+const useSearchRESStore = useSearchresStore();
 const ls = ref(useSearchRESStore.searchRes)
 const searchResults = ref([]);
 
