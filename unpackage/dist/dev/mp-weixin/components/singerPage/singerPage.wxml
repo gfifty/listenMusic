@@ -1,1 +1,1 @@
-<view class="grid"><view wx:for="{{a}}" wx:for-item="item" wx:key="c" class="item"><image src="{{item.a}}" mode="scaleToFill" class="circle"></image><text class="item-text">{{item.b}}</text></view></view>
+<view class="grid"><view wx:for="{{a}}" wx:for-item="item" wx:key="c" class="item"><image src="{{item.a}}" mode="scaleToFill" class="circle"></image><text class="item-text">{{item.b}}</text></view></view><mini-player u-i="7f195891-0" bind:__l="__l"></mini-player>

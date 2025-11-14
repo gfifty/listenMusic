@@ -34,6 +34,7 @@
 }
 .search-bar input {
   border: none;
+  color: #9cdf7e;
   outline: none;
   font-size: 14px;
   width: 100%;

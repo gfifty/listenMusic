@@ -7,7 +7,7 @@ const store_logindata = require("../../store/logindata.js");
 if (!Math) {
   (pageHead + miniPlayer)();
 }
-const miniPlayer = () => "../../components/miniPlayer/miniPlayer.js";
+const miniPlayer = () => "../../components/miniPlayer/miniPlayer1.js";
 const pageHead = () => "../../components/pageHead/pageHead.js";
 const _sfc_main = {
   __name: "index",
@@ -53,12 +53,13 @@ const _sfc_main = {
     }
     hook_req.req("http://localhost:8080/Music/hotMusic").then((result) => {
       if (result.data.status == 200) {
+        console.log(result.data.data);
         originalList.value = result.data.data;
       }
     });
     function jumpTo(p, index) {
-      console.log(originalList.value);
       const playerStore = store_player.usePlayerStore();
+      console.log(originalList.value);
       playerStore.setPlaylist(originalList.value, index);
       common_vendor.index.navigateTo({
         url: `/pages/play/play`

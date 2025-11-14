@@ -1,0 +1,97 @@
+
+.page.data-v-1645046e {
+  background-color: #f8f9fa;
+  padding-bottom: 100rpx;
+}
+
+/* 歌单区 */
+.playlist-section.data-v-1645046e {
+  padding: 30rpx;
+}
+.section-title.data-v-1645046e {
+  font-size: 34rpx;
+  font-weight: 600;
+  margin-bottom: 20rpx;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.sub-title.data-v-1645046e {
+  color: #888;
+  font-size: 26rpx;
+  font-weight: normal;
+}
+.playlist-grid.data-v-1645046e {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24rpx;
+}
+.playlist-item.data-v-1645046e {
+  background: #fff;
+  border-radius: 20rpx;
+  overflow: hidden;
+  box-shadow: 0 10rpx 20rpx rgba(0, 0, 0, 0.05);
+  transition: transform 0.3s;
+}
+.playlist-item.data-v-1645046e:active {
+  transform: scale(0.96);
+}
+.playlist-cover-container.data-v-1645046e {
+  position: relative;
+  width: 100%;
+  padding-bottom: 100%;
+  overflow: hidden;
+}
+.playlist-cover.data-v-1645046e {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+.playlist-info.data-v-1645046e {
+  padding: 20rpx;
+}
+.playlist-name.data-v-1645046e {
+  font-size: 28rpx;
+  font-weight: 600;
+  margin-bottom: 8rpx;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.playlist-count.data-v-1645046e {
+  font-size: 22rpx;
+  color: #888;
+}
+
+/* 创建按钮 */
+.create-music-btn.data-v-1645046e {
+  position: fixed;
+  bottom: 40rpx;
+  right: 40rpx;
+  width: 110rpx;
+  height: 110rpx;
+  background: linear-gradient(135deg, #6e8efb, #a777e3);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 10rpx 24rpx rgba(110, 142, 251, 0.5);
+}
+.create-music-btn text.data-v-1645046e {
+  color: #fff;
+  font-size: 44rpx;
+}
+
+/* 响应式布局 (小屏改2列，大屏改3列) */
+@media screen and (min-width: 600px) {
+.playlist-grid.data-v-1645046e {
+    grid-template-columns: repeat(3, 1fr);
+}
+}
+@media screen and (min-width: 900px) {
+.playlist-grid.data-v-1645046e {
+    grid-template-columns: repeat(4, 1fr);
+}
+}

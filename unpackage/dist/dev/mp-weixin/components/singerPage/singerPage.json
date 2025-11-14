@@ -1,4 +1,6 @@
 {
   "component": true,
-  "usingComponents": {}
+  "usingComponents": {
+    "mini-player": "../miniPlayer/miniPlayer1"
+  }
 }

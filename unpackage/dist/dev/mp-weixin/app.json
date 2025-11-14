@@ -11,7 +11,9 @@
     "pages/typeShow/typeShow",
     "pages/singlistDetail/singlistDetail",
     "pages/changehuman/changehuman",
-    "pages/albumDetail/albumDetail"
+    "pages/albumDetail/albumDetail",
+    "pages/mine/mine1/mine1",
+    "components/personMusic/personmusic1/personmusic1"
   ],
   "window": {
     "navigationBarTextStyle": "black",

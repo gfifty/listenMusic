@@ -17,12 +17,14 @@
 				</view>
 			</uni-list-item>
 		</uni-list>
+		<miniPlayer></miniPlayer>
 	</view>
 </template>
 
 <script setup>
+	import miniPlayer from "@/components/miniPlayer/miniPlayer1.vue"
 	import {onMounted,ref} from "vue";
-import { usePlayerStore } from "../../store/player";
+	import { usePlayerStore } from "../../store/player";
 	import {useSearchresStore} from '/store/data.js'
 
 	const useSearchRESStore = useSearchresStore()

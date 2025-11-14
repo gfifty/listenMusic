@@ -13,6 +13,7 @@
 </script>
 
 <style>
+
 	page {
 	    background: linear-gradient(135deg, #87CEFA  0%, #00BFFF  50%, #40E0D0 100%);
 	    color: #5e3a78;

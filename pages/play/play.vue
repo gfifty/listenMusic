@@ -1,18 +1,20 @@
 <template>
+	<image :src="currentTrack.cover" mode="aspectFill" class="musicCover"/>
   <view class="player-bar">
     <!-- 封面 -->
     <view class="cover">
-      <image :src="currentTrack.cover" mode="aspectFill" />
     </view>
     <!-- 歌曲信息 -->
     <view class="info">
-      <view class="title">{{ currentTrack.name || '未播放' }}</view>
-      <view class="artist">{{ currentTrack.artist || '未知歌手' }}</view>
+      <view class="title">{{ currentTrack.musicName || '未播放' }}</view>
+      <view class="artist">{{ currentTrack.singerName || '未知歌手' }}</view>
       <view class="progress">
         <text>{{ formatTime(progress) }}</text>
         <slider
+		 class="musicSlider"
           :value="progress"
           :max="duration"
+		  @changing="onChanging"
           @change="onSeek"
         />
         <text>{{ formatTime(duration) }}</text>
@@ -44,63 +46,63 @@
     </scroll-view>
 
     <!-- 播放列表弹窗 -->
-    <view v-if="showPlaylist" class="playlist">
+   <view v-if="showPlaylist" class="playlist">
       <view
         v-for="(track, i) in playlist"
-        :key="track.id"
+        :key="track.musicId"
         class="playlist-item"
-        :class="{ active: track.id === currentTrack.id }"
+        :class="{ active: track.musicId === currentTrack.musicId }"
         @click="playTrack(track)"
       >
-        {{ i + 1 }}. {{ track.name }} - {{ track.artist }}
+        {{ i + 1 }}. {{ track.musicName }} - {{ track.singerName }}
       </view>
     </view>
   </view>
 </template>
 
 <script setup>
-import { compute,computed,watch } from 'vue';
+import { computed,watch } from 'vue';
 import { usePlayerStore } from '@/store/player';
 import { onLoad } from "@dcloudio/uni-app";
+import { storeToRefs } from 'pinia';
 
+
+const player = usePlayerStore();
+const {currentTrack,playing,progress,duration,lyrics,currentLyricIndex,showPlaylist,mode} =storeToRefs(player)
+const playlist = computed(() => player.playlist);
+const index = computed(()=>player.index);
+
+// 页面加载时
 onLoad(()=>{
-	const player = usePlayerStore();
-	
-	const playlist = computed(() => player.playlist);
-	const index = computed(()=>player.index);
-	
-	player.setPlaylist(playlist,index);
-	player.playTrack(playlist[index]);
+	if (playlist.value?.length > 0) {
+	player.setPlaylist(playlist.value,index.value);
+	// player.playTrack(playlist[index.value]);
+	}
 })
-
-// 播放状态
-const currentTrack = computed(() => player.currentTrack || {})
-const playing = computed(() => player.playing)
-const progress = computed(() => player.progress)
-const duration = computed(() => player.duration)
-const lyrics = computed(() => player.lyrics)
-const currentLyricIndex = computed(() => player.currentLyricIndex)
-const showPlaylist = computed(() => player.showPlaylist)
-const mode = computed(() => player.mode)
-
-
 
 // 按钮对应图标（用 emoji 替代）
 const modeIcon = computed(() => {
-  if (mode.value === 'order') return '🔁'
-  if (mode.value === 'shuffle') return '🔀'
-  if (mode.value === 'single') return '🔂'
-  return '🔁'
+	switch (mode.value) {
+		case 'order' : return '🔁'
+		case 'shuffle' : return '🔀'
+		default: return '🔁'
+	}
 })
 
 // 控制函数
 const playTrack = (track) => player.playTrack(track)
 const togglePlay = () => player.togglePlay()
-const next = () => player.next()
+const next = () => {player.next()}
 const prev = () => player.prev()
 const toggleMode = () => player.toggleMode()
-const togglePlaylist = () => player.showPlaylist = !player.showPlaylist
-const onSeek = (e) => player.seek(e.detail.value)
+const togglePlaylist = () => player.togglePlaylist() //切换播放列表
+const onChanging =(e) =>{ 
+	console.log('onChanging:' ,e.detail.value);
+	progress.value = e.detail.value}
+const onSeek = (e) => {
+	console.log('onSeek：' ,e.detail.value);
+	player.seek(e.detail.value)
+	}
 
 // 工具函数
 const formatTime = (sec) => {
@@ -109,9 +111,22 @@ const formatTime = (sec) => {
   const s = Math.floor(sec % 60).toString().padStart(2, '0')
   return `${m}:${s}`
 }
+// 确保切歌后 UI 刷新
+watch(currentTrack, (newTrack) => {
+  console.log('🎵 当前播放歌曲:', newTrack)
+})
 </script>
 
 <style scoped>
+.musicCover{
+	width: 500rpx;
+	height: 500rpx;
+	position: absolute;
+	top: 100rpx;
+	left: 110rpx;
+	border-radius: 40rpx;
+	line-height: 60rpx;
+}
 .player-bar {
   position: fixed;
   bottom: 0;
@@ -154,6 +169,9 @@ const formatTime = (sec) => {
   font-size: 12px;
   width: 40px;
   text-align: center;
+}
+.musicSlider{
+	width: 400rpx;
 }
 
 .controls {

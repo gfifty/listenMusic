@@ -1,92 +1,97 @@
 
-.tit{
-		background-color: #797979;
+.tit {
+		background: rgba(117, 117, 117,0.2);
 		height: 400rpx;
 }
-.singlistimage{
-	width: 400rpx;
-	height: 400rpx;
+.ImageBox {
+		padding: 50rpx;
 }
-.intro{
+.singlistimage {
+		width: 300rpx;
+		height: 300rpx;
+		border-radius: 20%;
+}
+.intro {
 		margin-top: 20rpx;
 		font-size: 30rpx;
 		width: 300rpx;
 		overflow: hidden;
-		  text-overflow: ellipsis;
-		  display: -webkit-box;
-		  -webkit-box-orient: vertical;
-		  -webkit-line-clamp: 3;
+		text-overflow: ellipsis;
+		display: -webkit-box;
+		-webkit-box-orient: vertical;
+		-webkit-line-clamp: 3;
 }
-.typetitle{
-	position: relative;
-	left: 400rpx;
-	top: -300rpx;
-	display: block;
+.typetitle {
+		position: relative;
+		font-weight: bold;
+		left: 400rpx;
+		top: -300rpx;
+		display: block;
 }
-.lists :nth-child(1)>.onemusic>.num{
+.lists :nth-child(1)>.onemusic>.num {
 		color: red;
 }
-.lists :nth-child(2)>.onemusic>.num{
+.lists :nth-child(2)>.onemusic>.num {
 		color: orange;
 }
-.lists :nth-child(3)>.onemusic>.num{
+.lists :nth-child(3)>.onemusic>.num {
 		color: green;
 }
-.leftbo{
-		text-align: center;
-		border: 1px solid #aaaaaa;
+.leftbo {
+		text-align: left;
+/* 		border: 1px solid #aaaaaa; */
 		width: 90%;
 		padding: 20rpx;
 		margin: 20rpx 20rpx 20rpx 0;
 }
-.onemusic{
-	height: 30rpx;
-	line-height: 30rpx;
-	/* border-bottom: 1px solid #797979; */
-	padding-bottom: 18rpx;
+.onemusic {
+		height: 50rpx;
+		line-height: 70rpx;
+		/* border-bottom: 1px solid #797979; */
+		padding-bottom: 18rpx;
 }
-.num{
-	display: inline-block;
-	width: 30rpx;
-	line-height: 30rpx;
-	font-size: 30rpx;
-	font-weight: 700;
-	margin-right: 10rpx;
+.num {
+		display: inline-block;
+		width: 30rpx;
+		line-height: 30rpx;
+		font-size: 30rpx;
+		font-weight: 700;
+		margin:0 10rpx 0 30rpx;
 }
-.name{
-	display: inline-block;
-	line-height: 30rpx;
-	margin-top: 10rpx;
-	font-size: 25rpx;
-	width: 46%;
-	overflow: hidden;
-	white-space: nowrap;
-	text-overflow: ellipsis;
+.name {
+		display: inline-block;
+		line-height: 30rpx;
+		margin-top: 10rpx;
+		font-size: 25rpx;
+		width: 50%;
+		overflow: hidden;
+		white-space: nowrap;
+		text-overflow: ellipsis;
 }
-.artist{
-	display: inline-block;
-	width: 30%;
-	margin-left: 10rpx;
-	line-height: 24rpx;
-	font-size: 20rpx;
-	overflow: hidden;
-	white-space: nowrap;
-	text-overflow: ellipsis;
+.artist {
+		display: inline-block;
+		width: 20%;
+		margin: 0 20rpx 0 20rpx;
+		line-height: 24rpx;
+		font-size: 20rpx;
+		overflow: hidden;
+		white-space: nowrap;
+		text-overflow: ellipsis;
 }
-.playButton{
-	display: inline-block;
-	margin-left: 17rpx;
-	line-height: 30rpx;
-	width: 30rpx;
-	height: 30rpx;
-	font-size: 25rpx;
-	border: 1px solid black;
-	border-radius: 30rpx;
-	text-align: center;
-	padding-left: 3rpx;
-	padding-bottom: 1rpx;
+.playButton {
+		display: inline-block;
+		margin-left: 17rpx;
+		line-height: 30rpx;
+		width: 30rpx;
+		height: 30rpx;
+		font-size: 25rpx;
+		border: 1px solid black;
+		border-radius: 30rpx;
+		text-align: center;
+		padding-left: 3rpx;
+		padding-bottom: 1rpx;
 }
-.title{
-	text-align: center;
-	font-size: 40rpx;
+.title {
+		text-align: center;
+		font-size: 40rpx;
 }

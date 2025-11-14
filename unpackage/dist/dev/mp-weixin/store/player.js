@@ -14,10 +14,12 @@ const usePlayerStore = common_vendor.defineStore("player", {
     // 当前播放进度 (秒)
     duration: 0,
     // 总时长 (秒)
-    mode: "loop",
-    // 播放模式 loop | single | shuffle
+    mode: "order",
+    // 播放模式 order | shuffle
     showLyrics: false,
     // 是否显示歌词
+    showPlaylist: false,
+    // 是否显示播放列表
     lyrics: [],
     // 当前歌词
     currentLyricIndex: 0
@@ -52,9 +54,9 @@ const usePlayerStore = common_vendor.defineStore("player", {
     playTrack(track) {
       this.initAudioManager();
       this.currentTrack = track;
-      this.backgroundAudioManager.src = track.musicUrl;
-      this.backgroundAudioManager.title = track.musicName;
-      this.backgroundAudioManager.singer = track.singerName;
+      this.backgroundAudioManager.src = track.musicUrl || track.url;
+      this.backgroundAudioManager.title = track.musicName || track.name;
+      this.backgroundAudioManager.singer = track.singerName || track.artist;
       this.backgroundAudioManager.coverImgUrl = track.cover;
       this.playing = true;
     },
@@ -87,12 +89,16 @@ const usePlayerStore = common_vendor.defineStore("player", {
     next() {
       if (this.playlist.length === 0)
         return;
-      const idx = this.playlist.findIndex((t) => t.id === this.currentTrack.id);
+      const idx = this.playlist.findIndex((t) => String(t.musicId) === String(this.currentTrack.musicId));
       let nextIdx = idx + 1;
       if (this.mode === "shuffle") {
-        nextIdx = Math.floor(Math.random() * this.playlist.length);
-      } else if (this.mode === "single") {
-        nextIdx = idx;
+        if (this.playlist.length === 1) {
+          nextIdx = 0;
+        } else {
+          do {
+            nextIdx = Math.floor(Math.random() * this.playlist.length);
+          } while (nextIdx === idx);
+        }
       } else if (nextIdx >= this.playlist.length) {
         nextIdx = 0;
       }
@@ -104,11 +110,12 @@ const usePlayerStore = common_vendor.defineStore("player", {
     prev() {
       if (this.playlist.length === 0)
         return;
-      const idx = this.playlist.findIndex((t) => t.id === this.currentTrack.id);
+      const idx = this.playlist.findIndex((t) => t.musicId === this.currentTrack.musicId);
       let prevIdx = idx - 1;
       if (prevIdx < 0)
         prevIdx = this.playlist.length - 1;
       this.playTrack(this.playlist[prevIdx]);
+      this.index = prevIdx;
     },
     /**
      * 跳转到指定播放位置
@@ -126,6 +133,7 @@ const usePlayerStore = common_vendor.defineStore("player", {
       this.playlist = list;
       this.index = startIndex;
       this.playTrack(list[startIndex]);
+      console.log("在此展示", list[startIndex]);
     },
     /**
      * 加载歌词文本并解析
@@ -164,6 +172,20 @@ const usePlayerStore = common_vendor.defineStore("player", {
           break;
         }
       }
+    },
+    /**
+     * 切换播放列表显示状态 
+    */
+    togglePlaylist() {
+      this.showPlaylist = !this.showPlaylist;
+    },
+    /** 
+     * 切换播放模式 
+     */
+    toggleMode() {
+      const modes = ["order", "shuffle"];
+      const i = modes.indexOf(this.mode);
+      this.mode = modes[(i + 1) % modes.length];
     }
   }
 });

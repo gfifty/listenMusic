@@ -1,39 +1,48 @@
 <template>
   <!-- 播放控制条 -->
-      <div class="player-bar">
-          <div class="song-info">
-              <img src="https://picsum.photos/id/65/300/300" class="song-thumb" alt="当前播放">
-              <div class="song-details">
-                  <div class="song-name">夏日微风</div>
-                  <div class="song-artist">周杰伦</div>
-              </div>
-          </div>
-          <div class="player-controls">
-              <i class="fas fa-step-backward controls-i"></i>
-              <div class="play-btn">
-                  <i class="fas fa-play controls-i"></i>
-              </div>
-              <i class="fas fa-step-forward controls-i"></i>
-          </div>
-      </div>
+      <view class="player-bar" @click="toPlayPage">
+          <view class="song-info">
+              <img :src="currentTrack.cover" class="song-thumb" alt="当前播放">
+              <view class="song-details">
+                  <view class="song-name">{{ currentTrack.musicName || '未播放' }}</view>
+                  <view class="song-artist">{{ currentTrack.singerName || '未知歌手' }}</view>
+              </view>
+          </view>
+          <view class="player-controls">
+              <i class="controls-i" @click.stop="prev">⋘</i>
+              <view class="play-btn">
+                  <i class="controls-i" @click.stop="togglePlay">{{ playing ? '||' : '▶' }}</i>
+              </view>
+              <i class="controls-i" @click.stop="next">⋙</i>
+          </view>
+      </view>
 </template>
 
 <script setup>
 import { usePlayerStore } from "@/store/player";
 import { onMounted } from "vue";
+import { storeToRefs } from 'pinia';
+
 
 const player = usePlayerStore();
+const {currentTrack,playing,progress,duration,lyrics,currentLyricIndex,showPlaylist,mode} =storeToRefs(player)
 
-onMounted(() => {
-  player.initListeners();
-});
+const prev = () =>{player.prev()}
+const next = () =>{player.next()}
+const togglePlay = () =>{player.togglePlay()}
+
 
 function toPlayPage() {
-  uni.navigateTo({
-    url: `/pages/play/play?music=${encodeURIComponent(
-      JSON.stringify(player.currentSong)
-    )}`,
-  });
+	if (!player.currentTrack || !player.currentTrack.musicName) {
+	    uni.showToast({
+	      title: '当前没有播放中的歌曲',
+	      icon: 'none'
+	    })
+	    return
+	  }
+	uni.navigateTo({
+		        url: `/pages/play/play`,
+		    });
 }
 </script>
 
@@ -91,7 +100,7 @@ function toPlayPage() {
         
         .player-controls .controls-i {
             font-size: 18px;
-            color: #9cdf7e;
+            color: #618a4e;
             cursor: pointer;
             transition: all 0.2s ease;
         }
@@ -103,6 +112,7 @@ function toPlayPage() {
         
         .play-btn {
             background: #9cdf7e;
+			padding-left: 5rpx;
             width: 36px;
             height: 36px;
             border-radius: 50%;

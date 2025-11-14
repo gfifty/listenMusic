@@ -8,6 +8,10 @@ if (!Array) {
   const _component_uni_list = common_vendor.resolveComponent("uni-list");
   (_component_P + _component_uni_list_item + _component_uni_list)();
 }
+if (!Math) {
+  miniPlayer();
+}
+const miniPlayer = () => "../miniPlayer/miniPlayer1.js";
 const _sfc_main = {
   __name: "singlePage",
   setup(__props) {

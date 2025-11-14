@@ -5,9 +5,11 @@
           <text class="item-text">{{ item.singerName }}</text>
         </view>
       </view>
+	  <miniPlayer></miniPlayer>
 </template>
 
 <script setup>
+import miniPlayer from "@/components/miniPlayer/miniPlayer1.vue"
 import { onMounted, ref } from 'vue';
 import {useSearchresStore} from '/store/data.js'
 

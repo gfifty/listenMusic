@@ -1,4 +1,13 @@
 
+.musicCover.data-v-edf5a525{
+	width: 500rpx;
+	height: 500rpx;
+	position: absolute;
+	top: 100rpx;
+	left: 110rpx;
+	border-radius: 40rpx;
+	line-height: 60rpx;
+}
 .player-bar.data-v-edf5a525 {
   position: fixed;
   bottom: 0;
@@ -35,6 +44,9 @@
   font-size: 12px;
   width: 40px;
   text-align: center;
+}
+.musicSlider.data-v-edf5a525{
+	width: 400rpx;
 }
 .controls.data-v-edf5a525 {
   display: flex;

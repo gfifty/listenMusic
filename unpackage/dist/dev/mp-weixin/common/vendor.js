@@ -7538,3 +7538,4 @@ exports.sr = sr;
 exports.storeToRefs = storeToRefs;
 exports.t = t;
 exports.unref = unref;
+exports.watch = watch;

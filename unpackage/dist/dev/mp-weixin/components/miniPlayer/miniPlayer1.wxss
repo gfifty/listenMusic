@@ -44,16 +44,10 @@
             align-items: center;
 }
 .player-controls .controls-i {
-            font-size: 20px;
-            color: #9cdf7e;
+            font-size: 18px;
+            color: #618a4e;
             cursor: pointer;
             transition: all 0.2s ease;
-}
-.controls-stop{
-			font-size: 20px;
-			color: #5e3a78;
-			cursor: pointer;
-			transition: all 0.2s ease;
 }
 .player-controls .controls-i:hover {
             color: #5e3a78;
@@ -61,6 +55,7 @@
 }
 .play-btn {
             background: #9cdf7e;
+			padding-left: 5rpx;
             width: 36px;
             height: 36px;
             border-radius: 50%;

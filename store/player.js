@@ -10,8 +10,9 @@ export const usePlayerStore = defineStore('player', {
     playing: false,       // 播放状态
     progress: 0,          // 当前播放进度 (秒)
     duration: 0,          // 总时长 (秒)
-    mode: 'loop',         // 播放模式 loop | single | shuffle
+    mode: 'order',         // 播放模式 order | shuffle
     showLyrics: false,    // 是否显示歌词
+	showPlaylist: false,  // 是否显示播放列表
     lyrics: [],           // 当前歌词
     currentLyricIndex: 0, // 当前歌词行
   }),
@@ -51,12 +52,13 @@ export const usePlayerStore = defineStore('player', {
     playTrack(track) {
       this.initAudioManager()
       this.currentTrack = track // 设置当前歌曲 
-      this.backgroundAudioManager.src = track.musicUrl // 音频源地址
-      this.backgroundAudioManager.title = track.musicName
-      this.backgroundAudioManager.singer = track.singerName
+      this.backgroundAudioManager.src = track.musicUrl || track.url // 音频源地址
+      this.backgroundAudioManager.title = track.musicName || track.name
+      this.backgroundAudioManager.singer = track.singerName || track.artist
       this.backgroundAudioManager.coverImgUrl = track.cover
       this.playing = true
     },
+	
 /**
  * 继续播放
  */
@@ -85,20 +87,30 @@ export const usePlayerStore = defineStore('player', {
  */
     next() {
       if (this.playlist.length === 0) return
+	  
 	  // 查找当前歌曲在播放列表中的索引
-      const idx = this.playlist.findIndex(t => t.id === this.currentTrack.id)
+      const idx = this.playlist.findIndex(t => String(t.musicId) === String(this.currentTrack.musicId))
       let nextIdx = idx + 1
+	  
+	  // ====== 播放模式逻辑 ======
 	  // 根据播放模式计算下一首索引
       if (this.mode === 'shuffle') {
+		  
 		  // 随机模式：随机选择一首
-        nextIdx = Math.floor(Math.random() * this.playlist.length)
-      } else if (this.mode === 'single') {
-		  // 单曲循环模式：播放同一首
-        nextIdx = idx
-      } else if (nextIdx >= this.playlist.length) {
+		if(this.playlist.length === 1){
+			nextIdx = 0
+		}else {
+			do {
+				nextIdx = Math.floor(Math.random() * this.playlist.length)
+			} while (nextIdx === idx)
+		}
+
+      }  else if (nextIdx >= this.playlist.length) {
+		  
 		  // 循环模式：播放到最后一首后回到第一首
         nextIdx = 0
       }
+	  
 	  // 播放下一首歌曲
       this.playTrack(this.playlist[nextIdx])
     },
@@ -107,11 +119,12 @@ export const usePlayerStore = defineStore('player', {
  */
     prev() {
       if (this.playlist.length === 0) return
-      const idx = this.playlist.findIndex(t => t.id === this.currentTrack.id)
+      const idx = this.playlist.findIndex(t => t.musicId === this.currentTrack.musicId)
       let prevIdx = idx - 1
 	  // 如果已经是第一首，则跳到最后一首
       if (prevIdx < 0) prevIdx = this.playlist.length - 1
       this.playTrack(this.playlist[prevIdx])
+	  this.index =prevIdx
     },
 /**
  * 跳转到指定播放位置
@@ -129,6 +142,7 @@ export const usePlayerStore = defineStore('player', {
       this.playlist = list
 	  this.index =startIndex
       this.playTrack(list[startIndex])
+	  console.log("在此展示",list[startIndex]);
     },
 /**
  * 加载歌词文本并解析
@@ -166,6 +180,20 @@ export const usePlayerStore = defineStore('player', {
           break
         }
       }
-    }
+    },
+	/**
+	 * 切换播放列表显示状态 
+	*/
+	togglePlaylist() {
+	      this.showPlaylist = !this.showPlaylist
+	},
+	/** 
+	 * 切换播放模式 
+	 */
+	toggleMode() {
+	    const modes = ['order', 'shuffle']
+	    const i = modes.indexOf(this.mode)
+	    this.mode = modes[(i + 1) % modes.length]
+	},
   }
 })

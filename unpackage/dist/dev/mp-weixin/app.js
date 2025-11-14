@@ -14,6 +14,8 @@ if (!Math) {
   "./pages/singlistDetail/singlistDetail.js";
   "./pages/changehuman/changehuman.js";
   "./pages/albumDetail/albumDetail.js";
+  "./pages/mine/mine1/mine1.js";
+  "./components/personMusic/personmusic1/personmusic1.js";
 }
 const _sfc_main = {
   onLaunch: function() {

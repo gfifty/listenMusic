@@ -1,3 +1,4 @@
+<!-- 首页展示区 -->
 <template>
 	<div class="app-container">
 		<pageHead></pageHead>
@@ -15,7 +16,7 @@
 			<div class="playlist-grid">
 				<div class="playlist-card animate" v-for="(p,index) in albumList" :key="index"
 					@click="openSinglist(p.singlistId)">
-					<img :src="p.singlistHead" class="playlist-img" alt="cover">
+					<img :src="p.singlistHead" class="playlist-img">
 					<div class="playlist-info">
 						<div class="playlist-name">{{ p.singlistName }}</div>
 						<div class="playlist-meta">
@@ -50,7 +51,7 @@
 
 <script setup>
 	import {req} from "/hook/req.js"
-	import miniPlayer from "@/components/miniPlayer/miniPlayer.vue"
+	import miniPlayer from "@/components/miniPlayer/miniPlayer1.vue"
 	import {inject,ref} from "vue"
 	import pageHead from "@/components/pageHead/pageHead.vue"
 	import {usePlayerStore} from "@/store/player.js"
@@ -103,13 +104,14 @@
 	/*单曲推荐单*/
 	req("http://localhost:8080/Music/hotMusic").then(result => {
 		if (result.data.status == 200) {
+			console.log(result.data.data);
 			originalList.value = result.data.data
 		}
 	})
 
 	function jumpTo(p,index){
-		console.log(originalList.value);
 		const playerStore =usePlayerStore()
+		console.log(originalList.value);
 		playerStore.setPlaylist(originalList.value,index)
 		uni.navigateTo({
 		        url: `/pages/play/play`,
@@ -138,6 +140,7 @@
 	}
 
 	.default-title {
+		
 		font-size: 20px;
 		font-weight: 600;
 		color: #5e3a78;
@@ -297,7 +300,7 @@
 	}
 
 	.song-title {
-		width: 80%;
+		width: 400rpx;
 		font-weight: 600;
 		font-size: 16px;
 		margin-bottom: 4px;

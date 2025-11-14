@@ -15,6 +15,7 @@
 		margin: 30px 0 20px;
 }
 .default-title.data-v-1cf27b2a {
+		
 		font-size: 20px;
 		font-weight: 600;
 		color: #5e3a78;
@@ -155,7 +156,7 @@
 		flex: 1;
 }
 .song-title.data-v-1cf27b2a {
-		width: 80%;
+		width: 400rpx;
 		font-weight: 600;
 		font-size: 16px;
 		margin-bottom: 4px;

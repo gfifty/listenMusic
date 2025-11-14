@@ -10,9 +10,11 @@
 			</uni-list-item>
 		</uni-list>
 	</view>
+	<miniPlayer></miniPlayer>
 </template>
 
 <script setup>
+import miniPlayer from "@/components/miniPlayer/miniPlayer1.vue"
 import {
 		onMounted,
 		ref

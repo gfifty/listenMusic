@@ -1,6 +1,10 @@
 "use strict";
 const common_vendor = require("../../common/vendor.js");
 const store_data = require("../../store/data.js");
+if (!Math) {
+  miniPlayer();
+}
+const miniPlayer = () => "../miniPlayer/miniPlayer1.js";
 const _sfc_main = {
   __name: "singerPage",
   setup(__props) {

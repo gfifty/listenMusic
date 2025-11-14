@@ -52,6 +52,7 @@ const player = getPlayer();
 
 // 页面加载时初始化
 onLoad((options) => {
+	console.log(options);
   audioList.value = JSON.parse(decodeURIComponent(options.singlist));
   song.value = JSON.parse(decodeURIComponent(options.music));
   index.value = parseInt(options.index);

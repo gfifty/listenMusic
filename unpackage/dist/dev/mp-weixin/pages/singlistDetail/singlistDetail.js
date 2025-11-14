@@ -1,20 +1,29 @@
 "use strict";
 const common_vendor = require("../../common/vendor.js");
+const store_player = require("../../store/player.js");
 if (!Array) {
   const _component_uni_list_item = common_vendor.resolveComponent("uni-list-item");
   const _component_uni_list = common_vendor.resolveComponent("uni-list");
   (_component_uni_list_item + _component_uni_list)();
 }
+if (!Math) {
+  miniPlayer();
+}
+const miniPlayer = () => "../../components/miniPlayer/miniPlayer1.js";
 const _sfc_main = {
   __name: "singlistDetail",
   setup(__props) {
+    const player = store_player.usePlayerStore();
+    common_vendor.storeToRefs(player);
     const singlist = common_vendor.ref({});
     const singlistMusic = common_vendor.ref([]);
     common_vendor.onLoad((option) => {
       common_vendor.index.request({
         url: "http://localhost:8080/singlistMusic/getSinglistMusic",
         method: "POST",
-        data: { singlistId: option.singlistId },
+        data: {
+          singlistId: option.singlistId
+        },
         success: (res) => {
           if (res.data.status === 200) {
             singlistMusic.value = res.data.data;
@@ -35,7 +44,9 @@ const _sfc_main = {
           common_vendor.index.request({
             url: "http://localhost:8080/singlistMusic/getSinglistThing",
             method: "POST",
-            data: { singlistId: option.singlistId },
+            data: {
+              singlistId: option.singlistId
+            },
             success: (response) => resolve(response),
             fail: (error) => reject(error)
           });
@@ -50,8 +61,11 @@ const _sfc_main = {
       }
     };
     function jumpTo(p, index) {
+      const playerStore = store_player.usePlayerStore();
+      console.log("这是singlist", singlistMusic.value);
+      playerStore.setPlaylist(singlistMusic.value, index);
       common_vendor.index.navigateTo({
-        url: `/pages/play/play?singlist=${encodeURIComponent(JSON.stringify(singlistMusic.value))}&music=${encodeURIComponent(JSON.stringify(p))}&index=${index}`
+        url: `/pages/play/play`
       });
     }
     return (_ctx, _cache) => {

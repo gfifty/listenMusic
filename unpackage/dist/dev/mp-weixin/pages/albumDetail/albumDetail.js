@@ -1,5 +1,6 @@
 "use strict";
 const common_vendor = require("../../common/vendor.js");
+const store_player = require("../../store/player.js");
 if (!Array) {
   const _component_uni_list_item = common_vendor.resolveComponent("uni-list-item");
   const _component_uni_list = common_vendor.resolveComponent("uni-list");
@@ -8,6 +9,8 @@ if (!Array) {
 const _sfc_main = {
   __name: "albumDetail",
   setup(__props) {
+    const player = store_player.usePlayerStore();
+    common_vendor.storeToRefs(player);
     const alubum = common_vendor.ref();
     const alubumList = common_vendor.ref({});
     common_vendor.onLoad((option) => {
@@ -22,34 +25,46 @@ const _sfc_main = {
             alubumList.value = res.data.data;
             console.log(alubumList.value);
           } else {
-            console.log("status不为200");
+            console.log("获取歌曲列表失败，status不为200");
           }
         },
         fail: (err) => {
           console.log(err);
         }
       });
-      common_vendor.index.request({
-        url: "http://localhost:8080/album/getAlbumThing",
-        method: "POST",
-        data: {
-          albumId: option.albumId
-        },
-        success: (res) => {
-          if (res.data.status == 200) {
-            alubum.value = res.data.data;
-          } else {
-            console.log("status不为200");
-          }
-        },
-        fail: (err) => {
-          console.log(err);
-        }
-      });
+      fetchSinglistData(option);
     });
+    const fetchSinglistData = async (option) => {
+      try {
+        const alubumListRes = await new Promise((resolve, reject) => {
+          common_vendor.index.request({
+            url: "http://localhost:8080/album/getAlbumThing",
+            method: "POST",
+            data: {
+              albumId: option.albumId
+            },
+            success: (res) => {
+              resolve(res);
+            },
+            fail: (err) => {
+              reject(err);
+            }
+          });
+        });
+        if (alubumListRes.data.status === 200) {
+          alubum.value = alubumListRes.data.data;
+        } else {
+          console.log("获取歌单信息失败，status不为200");
+        }
+      } catch (err) {
+        console.error("请求失败：", err);
+      }
+    };
     function jumpTo(p, index) {
+      const playerStore = store_player.usePlayerStore();
+      playerStore.setPlaylist(alubumList.value, index);
       common_vendor.index.navigateTo({
-        url: `/pages/play/play?singlist=${encodeURIComponent(JSON.stringify(alubumList.value))}&music=${encodeURIComponent(JSON.stringify(p))}&index=${index}`
+        url: `/pages/play/play`
       });
     }
     return (_ctx, _cache) => {
