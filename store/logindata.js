@@ -18,8 +18,11 @@ export const useUserResStore =defineStore('user', {
 		},
 		setIsLogined(Vi){
 			this.isLogined = Vi;
-		}
-		,
+		},
+		resetUser() {
+		  this.userRes = {};   // 清空用户数据
+		  this.isLogined = false;  // 设置为未登录
+		},
 		//单属性添加
 		setUserResField(key, value) {
 		  // 检查 userRes 是否已经存在

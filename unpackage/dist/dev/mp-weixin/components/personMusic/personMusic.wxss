@@ -1,63 +1,130 @@
 
-.firstMusic {
-	  display: flex;
-	  align-items: center;
-	  padding: 10rpx 0rpx;
-	  border-bottom: 1px solid #f2f3f4;
+
+
+/* 歌单区 */
+.playlist-section {
+  padding: 30rpx;
 }
-.firstMusic>p{
-		font-size: medium;
-		height: 100rpx;
-		line-height: 100rpx;
-		display: inline-block;
+.section-title {
+  font-size: 34rpx;
+  font-weight: 600;
+  margin-bottom: 20rpx;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
-.firstMusic>image{
-		font-size: medium;
-		height: 100rpx;
-		line-height: 100rpx;
-		display: inline-block;
+.sub-title {
+  color: #888;
+  font-size: 26rpx;
+  font-weight: normal;
 }
-.cover{
-		width: 80rpx;
-		height: 80rpx;
+.playlist-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24rpx;
 }
-.numsingle {
-		width: 40rpx;
-		text-align: center;
-		color: #AAAAAA;
-		display: inline-block;
-		margin: 0 20rpx 0 5rpx;
+.playlist-item {
+  background: #fff;
+  border-radius: 20rpx;
+  overflow: hidden;
+  box-shadow: 0 10rpx 20rpx rgba(0, 0, 0, 0.05);
+  transition: transform 0.3s;
 }
-.namesingle{
-		display: inline-block;
-		width: 240rpx;
-		margin:0 20rpx 0 20rpx;
-		color: #555555;
-		font-weight: bolder;
-		overflow-x: hidden;
-		white-space: nowrap;
-		text-overflow: ellipsis;
+.playlist-item:active {
+  transform: scale(0.96);
 }
-.artistsingle{
-		display: inline-block;
-		width: 200rpx;
-		color: #555555;
-		font-weight: bolder;
-		overflow: hidden;
-		white-space: nowrap;
-		text-overflow: ellipsis;
+.playlist-cover-container {
+  position: relative;
+  width: 100%;
+  padding-bottom: 100%;
+  overflow: hidden;
 }
-.love{
-		color:red;
-		margin: 0 20rpx 0 0;
+.playlist-cover {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
 }
-.playButtonsingle{
-		margin-left: 20rpx;
+.playlist-info {
+  background-color: linear-gradient(135deg, #87CEFA  0%, #00BFFF  50%, #40E0D0 100%);
+  border-top: rgba(130, 198, 241 ,0.2) 1rpx solid ;
+  padding: 20rpx;
 }
-.popup-container{
-		background-color: #555555;
+.playlist-name {
+  font-size: 28rpx;
+  font-weight: 600;
+  margin-bottom: 8rpx;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
-.previewimg{
-		width: 10rpx;
-		height: 10rpx;
+.playlist-count {
+  font-size: 22rpx;
+  color: #888;
+}
+
+/* 创建按钮 */
+.create-music-btn {
+  position: fixed;
+  bottom: 145rpx;
+  right: 40rpx;
+  width: 110rpx;
+  height: 110rpx;
+  background: linear-gradient(135deg, #6e8efb, #a777e3);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 10rpx 24rpx rgba(110, 142, 251, 0.5);
+}
+.create-music-btn .icon-add {
+  color: #fff;
+  font-size: 44rpx;
+}
+/* 弹窗 */
+.modal-content {
+	position: absolute;
+	left: 50%;
+	transform: translateX(-50%);
+	bottom: env(safe-area-inset-bottom);
+	background: #fff;
+	width: 85%;
+	border-radius: 30rpx 30rpx 30rpx 30rpx;
+	margin: 0 auto;
+	padding: 40rpx;
+}
+.modal-title {
+	font-size: 32rpx;
+	font-weight: bold;
+}
+.modal-close {
+	font-size: 36rpx;
+	color: #888;
+}
+.form-group {
+	margin-top: 30rpx;
+}
+.form-label {
+	font-size: 28rpx;
+}
+.form-input,
+.form-textarea {
+	width: 93%;
+	border: 2rpx solid #ddd;
+	border-radius: 15rpx;
+	padding: 20rpx;
+	margin-top: 10rpx;
+	font-size: 28rpx;
+}
+/* 响应式布局 (小屏改2列，大屏改3列) */
+@media screen and (min-width: 600px) {
+.playlist-grid {
+    grid-template-columns: repeat(3, 1fr);
+}
+}
+@media screen and (min-width: 900px) {
+.playlist-grid {
+    grid-template-columns: repeat(4, 1fr);
+}
 }

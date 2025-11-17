@@ -1,48 +1,43 @@
 
-.personCard{
-	height: 216rpx;
-	background-color: #f2f2f2;
-	margin-top: -50rpx;
+.page{
+		background: linear-gradient(135deg, #87CEFA 0%, #00BFFF 50%, #40E0D0 100%);
 }
-.changehuman{
-		width: 250rpx;
-		margin-left: 510rpx;
-		margin-top: -100rpx;
-		font-size: 30rpx;
+.profile-section {
+  background: linear-gradient(135deg, #87CEFA 0%, #00BFFF 50%, #40E0D0 100%);
+  color: #fff;
+  padding: 40rpx 30rpx;
+  border-radius: 0 0 40rpx 40rpx;
+  box-shadow: 0 10rpx 20rpx rgba(0, 0, 0, 0.1);
 }
-.user_header_image{
-	display: inline-block;
-	position: absolute;
-	width: 150rpx;
-	height: 150rpx;
-	border-radius: 75rpx;
-	border: 1rpx solid black;
-	margin: 26rpx 68rpx 0 64rpx;
+.profile-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20rpx;
 }
-.user_name{
-	display: block;
-	margin: 36rpx 0 20rpx 286rpx;
-	padding-top: 26rpx;
-	font-size: 50rpx;
+.avatar {
+  width: 140rpx;
+  height: 140rpx;
+  border-radius: 50%;
+  border: 4rpx solid rgba(255, 255, 255, 0.3);
+  margin-right: 20rpx;
 }
-.user_fan{
-	margin: 0rpx 0 20rpx 286rpx;
-	font-size: 25rpx;
+.user-info .username {
+  font-size: 34rpx;
+  font-weight: 600;
+  margin-bottom: 6rpx;
 }
-.user_attention{
-	margin-left: 30rpx;
-	font-size: 25rpx;
+
+/* 退出登录 */
+.logout-section {
+	padding: 30rpx;
 }
-.selectres{
-		width: 100%;
-		display: inline-block;
-		background-color: #F2F2F2;
-		height: 90rpx;
-		border: 0px solid black;
-		text-align: center;
-		line-height: 90rpx;
-		border-radius: 0;
+.logout-btn {
+	background: #fff;
+	border: 2rpx solid #eee;
+	border-radius: 15rpx;
+	color: #ff4757;
+	font-size: 30rpx;
+	padding: 20rpx 0;
 }
-.active{
-		background-color: #aaaaaa;
-}
+
+

@@ -21,21 +21,20 @@
     <view class="playlist-section">
       <view class="section-title">
         <text>我的歌单</text>
-        <text class="sub-title">共{{ playlists.length }}个</text>
+        <text class="sub-title">共{{ singleList.length }}个</text>
       </view>
       <view class="playlist-grid">
         <view
           class="playlist-item"
-          v-for="(playlist, index) in playlists"
+          v-for="(singleList, index) in singleList"
           :key="index"
-          @click="openPlaylist(playlist.name)"
+          @click="openPlaylist(singleList.name)"
         >
           <view class="playlist-cover-container">
-            <image :src="playlist.cover" class="playlist-cover" mode="aspectFill"></image>
+            <image :src="singleList.singlistHead" class="playlist-cover" mode="aspectFill"></image>
           </view>
           <view class="playlist-info">
-            <text class="playlist-name">{{ playlist.name }}</text>
-            <text class="playlist-count">{{ playlist.count }}首歌曲</text>
+            <text class="playlist-name">{{ singleList.singlistName }}</text>
           </view>
         </view>
       </view>
@@ -45,6 +44,37 @@
     <view class="create-music-btn" @click="createMusic">
       <text class="fa fa-plus"></text>
     </view>
+	<!-- 创建歌单弹窗 -->
+			<view class="modal-overlay" v-show="showModal" @click="closeModal">
+				<view class="modal-content" @click.stop>
+					<view class="modal-header">
+						<text class="modal-title">创建新歌单</text>
+						<text class="fa fa-times modal-close" @click="closeModal"></text>
+					</view>
+	
+					<view class="form-group">
+						<text class="form-label">歌单名称</text>
+						<input class="form-input" v-model="newPlaylist.name" placeholder="请输入歌单名称" />
+					</view>
+	
+					<view class="form-group">
+						<text class="form-label">歌单简介</text>
+						<textarea class="form-textarea" v-model="newPlaylist.desc" placeholder="请输入歌单简介"></textarea>
+					</view>
+	
+					<view class="form-group">
+						<text class="form-label">上传封面</text>
+						<view class="upload-btn" @click="uploadCover">
+							<text class="fa fa-image"></text>上传封面
+						</view>
+					</view>
+	
+					<view class="modal-actions">
+						<button class="cancel-btn" @click="closeModal">取消</button>
+						<button class="confirm-btn" @click="confirmCreate">确定创建</button>
+					</view>
+				</view>
+			</view>
   </view>
 </template>
 
@@ -257,6 +287,88 @@ function unLogin(){
 .create-music-btn text {
   color: #fff;
   font-size: 44rpx;
+}
+/* 弹窗 */
+.modal-overlay {
+	position: fixed;
+	left: 0;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	background: rgba(0, 0, 0, 0.5);
+	display: flex;
+	align-items: flex-end;
+	z-index: 1000;
+}
+
+.modal-content {
+	background: #fff;
+	width: 100%;
+	border-radius: 30rpx 30rpx 0 0;
+	padding: 40rpx;
+}
+
+.modal-title {
+	font-size: 32rpx;
+	font-weight: bold;
+}
+
+.modal-close {
+	font-size: 36rpx;
+	color: #888;
+}
+
+.form-group {
+	margin-top: 30rpx;
+}
+
+.form-label {
+	font-size: 28rpx;
+}
+
+.form-input,
+.form-textarea {
+	width: 100%;
+	border: 2rpx solid #ddd;
+	border-radius: 15rpx;
+	padding: 20rpx;
+	margin-top: 10rpx;
+	font-size: 28rpx;
+}
+
+.upload-btn {
+	border: 2rpx dashed #ccc;
+	border-radius: 15rpx;
+	padding: 30rpx;
+	font-size: 28rpx;
+	text-align: center;
+	margin-top: 10rpx;
+	color: #666;
+}
+
+.modal-actions {
+	display: flex;
+	justify-content: space-between;
+	margin-top: 40rpx;
+}
+
+.cancel-btn,
+.confirm-btn {
+	flex: 1;
+	padding: 20rpx;
+	border-radius: 12rpx;
+	font-size: 30rpx;
+}
+
+.cancel-btn {
+	background: #f5f5f5;
+	color: #333;
+	margin-right: 20rpx;
+}
+
+.confirm-btn {
+	background: linear-gradient(135deg, #6e8efb, #a777e3);
+	color: white;
 }
 
 /* 响应式布局 (小屏改2列，大屏改3列) */

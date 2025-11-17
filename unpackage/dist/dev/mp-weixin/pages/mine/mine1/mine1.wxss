@@ -130,6 +130,77 @@
   color: #fff;
   font-size: 44rpx;
 }
+/* 弹窗 */
+.modal-overlay.data-v-29bb7c73 {
+	position: fixed;
+	left: 0;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	background: rgba(0, 0, 0, 0.5);
+	display: flex;
+	align-items: flex-end;
+	z-index: 1000;
+}
+.modal-content.data-v-29bb7c73 {
+	background: #fff;
+	width: 100%;
+	border-radius: 30rpx 30rpx 0 0;
+	padding: 40rpx;
+}
+.modal-title.data-v-29bb7c73 {
+	font-size: 32rpx;
+	font-weight: bold;
+}
+.modal-close.data-v-29bb7c73 {
+	font-size: 36rpx;
+	color: #888;
+}
+.form-group.data-v-29bb7c73 {
+	margin-top: 30rpx;
+}
+.form-label.data-v-29bb7c73 {
+	font-size: 28rpx;
+}
+.form-input.data-v-29bb7c73,
+.form-textarea.data-v-29bb7c73 {
+	width: 100%;
+	border: 2rpx solid #ddd;
+	border-radius: 15rpx;
+	padding: 20rpx;
+	margin-top: 10rpx;
+	font-size: 28rpx;
+}
+.upload-btn.data-v-29bb7c73 {
+	border: 2rpx dashed #ccc;
+	border-radius: 15rpx;
+	padding: 30rpx;
+	font-size: 28rpx;
+	text-align: center;
+	margin-top: 10rpx;
+	color: #666;
+}
+.modal-actions.data-v-29bb7c73 {
+	display: flex;
+	justify-content: space-between;
+	margin-top: 40rpx;
+}
+.cancel-btn.data-v-29bb7c73,
+.confirm-btn.data-v-29bb7c73 {
+	flex: 1;
+	padding: 20rpx;
+	border-radius: 12rpx;
+	font-size: 30rpx;
+}
+.cancel-btn.data-v-29bb7c73 {
+	background: #f5f5f5;
+	color: #333;
+	margin-right: 20rpx;
+}
+.confirm-btn.data-v-29bb7c73 {
+	background: linear-gradient(135deg, #6e8efb, #a777e3);
+	color: white;
+}
 
 /* 响应式布局 (小屏改2列，大屏改3列) */
 @media screen and (min-width: 600px) {

@@ -2,9 +2,8 @@
 const common_vendor = require("../../common/vendor.js");
 const store_logindata = require("../../store/logindata.js");
 if (!Array) {
-  const _component_uni_list_item = common_vendor.resolveComponent("uni-list-item");
   const _easycom_uni_popup2 = common_vendor.resolveComponent("uni-popup");
-  (_component_uni_list_item + _easycom_uni_popup2)();
+  _easycom_uni_popup2();
 }
 const _easycom_uni_popup = () => "../../uni_modules/uni-popup/components/uni-popup/uni-popup.js";
 if (!Math) {
@@ -35,6 +34,7 @@ const _sfc_main = {
       success(res) {
         if (res.data.status == 200) {
           singleList.value = res.data.data;
+          console.log(singleList.value);
         }
       },
       fail: (err) => {
@@ -144,26 +144,27 @@ const _sfc_main = {
     };
     return (_ctx, _cache) => {
       return {
-        a: common_vendor.f(singleList.value, (p, index, i0) => {
+        a: common_vendor.t(singleList.value.length),
+        b: common_vendor.f(singleList.value, (singleList2, index, i0) => {
           return {
-            a: p.singlistHead,
-            b: common_vendor.t(p.singlistName),
+            a: singleList2.singlistHead,
+            b: common_vendor.t(singleList2.singlistName),
             c: index,
-            d: common_vendor.o(($event) => openSinglist(p.singlistId), index),
-            e: "aa36beda-0-" + i0
+            d: common_vendor.o(($event) => openSinglist(singleList2.singlistId), index)
           };
         }),
-        b: common_vendor.o(open),
-        c: newSinglistName.value,
-        d: common_vendor.o(($event) => newSinglistName.value = $event.detail.value),
-        e: newSinglistDesc.value,
-        f: common_vendor.o(($event) => newSinglistDesc.value = $event.detail.value),
-        g: common_vendor.o(chooseImage),
-        h: common_vendor.o(createSinglist),
-        i: common_vendor.sr(popup, "aa36beda-1", {
+        c: common_vendor.o(open),
+        d: common_vendor.o((...args) => _ctx.closeModal && _ctx.closeModal(...args)),
+        e: newSinglistName.value,
+        f: common_vendor.o(($event) => newSinglistName.value = $event.detail.value),
+        g: newSinglistDesc.value,
+        h: common_vendor.o(($event) => newSinglistDesc.value = $event.detail.value),
+        i: common_vendor.o(chooseImage),
+        j: common_vendor.o(createSinglist),
+        k: common_vendor.sr(popup, "aa36beda-0", {
           "k": "popup"
         }),
-        j: common_vendor.p({
+        l: common_vendor.p({
           type: "bottom",
           ["border-radius"]: "10px 10px 0 0"
         })

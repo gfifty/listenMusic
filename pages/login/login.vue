@@ -74,9 +74,10 @@ import {useUserResStore} from '/store/logindata.js'
 </script>
 
 <style>
-page{
-	background-color: #d8d8d8;
-}
+	page{
+		 padding-bottom: 0rpx !important; 
+		 min-height: auto !important;
+	}
 .titile{
 	margin: 10% 0 10% 43%;
 	font-size: 60rpx;

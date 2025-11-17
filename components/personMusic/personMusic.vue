@@ -1,29 +1,52 @@
 <template>
 	<view>
-		<uni-list-item v-for="(p,index) in singleList" :key="index" @tap="openSinglist(p.singlistId)">
-			<view class="firstMusic">
-				<image :src="p.singlistHead" mode="aspectFit" class="cover"></image>
-				<p class="namesingle">{{p.singlistName}}</p>
-			</view>
-		</uni-list-item>
-		<button  @click="open">创建新的歌单</button>
+		<view class="playlist-section">
+		  <view class="section-title">
+		    <text>我的歌单</text>
+		    <text class="sub-title">共{{ singleList.length }}个</text>
+		  </view>
+		  <view class="playlist-grid">
+		    <view
+		      class="playlist-item"
+		      v-for="(singleList, index) in singleList"
+		      :key="index"
+		      @click="openSinglist(singleList.singlistId)"
+		    >
+		      <view class="playlist-cover-container">
+		        <image :src="singleList.singlistHead" class="playlist-cover" mode="aspectFill"></image>
+		      </view>
+		      <view class="playlist-info">
+		        <text class="playlist-name">{{ singleList.singlistName }}</text>
+		      </view>
+		    </view>
+		  </view>
+		</view>
+		
+		<view class="create-music-btn" @click="open">
+		<image src="/static/iconfont/y_icon_line_edit_add.svg" style="width:50rpx;height:50rpx;" mode="widthFix"></image>
+		</view>
+		
 		<uni-popup ref="popup" type="bottom" border-radius="10px 10px 0 0">
-					<view class="popup-container">
-						<input 
-							type="text" 
-							placeholder="请输入歌单名称" 
-							v-model="newSinglistName"
-							class="input"
-						/>
-						<textarea 
-							placeholder="请输入歌单简介（选填）" 
-							v-model="newSinglistDesc" 
-							class="textarea"
-						></textarea>
-						<button @click="chooseImage">选择封面图片</button>					
-						<button @click="createSinglist">创建</button>
+				<view class="modal-content">
+					<view class="modal-header">
+						<text class="modal-title">创建新歌单</text>
+						<text class="fa fa-times modal-close" @click="closeModal"></text>
 					</view>
-				</uni-popup>
+					
+					<view class="form-group">
+						<text class="form-label">歌单名称</text>
+					<input class="form-input" type="text" placeholder="请输入歌单名称" v-model="newSinglistName"/>
+					</view>
+					
+					<view class="form-group">
+						<text class="form-label">歌单简介</text>
+					<textarea class="form-textarea" placeholder="请输入歌单简介（选填）" v-model="newSinglistDesc"></textarea> 
+					</view>
+					
+					<button @click="chooseImage">选择封面图片</button>					
+					<button @click="createSinglist">创建</button>
+				</view>
+		</uni-popup>
 	</view>
 </template>
 
@@ -56,6 +79,7 @@ uni.request({
 	success(res) {
 		if(res.data.status ==200){
 			singleList.value=res.data.data
+			console.log(singleList.value);
 		}
 	},fail: (err) => {
 		console.log(err);
@@ -209,68 +233,149 @@ const createSinglist = async () => {
 </script>
 
 <style>
-.firstMusic {
-	  display: flex;
-	  align-items: center;
-	  padding: 10rpx 0rpx;
-	  border-bottom: 1px solid #f2f3f4;
-	}
-	
-	.firstMusic>p{
-		font-size: medium;
-		height: 100rpx;
-		line-height: 100rpx;
-		display: inline-block;
-	}
-	.firstMusic>image{
-		font-size: medium;
-		height: 100rpx;
-		line-height: 100rpx;
-		display: inline-block;
-	}
-	.cover{
-		width: 80rpx;
-		height: 80rpx;
-	}
-	.numsingle {
-		width: 40rpx;
-		text-align: center;
-		color: #AAAAAA;
-		display: inline-block;
-		margin: 0 20rpx 0 5rpx;
-	}
-	.namesingle{
-		display: inline-block;
-		width: 240rpx;
-		margin:0 20rpx 0 20rpx;
-		color: #555555;
-		font-weight: bolder;
-		overflow-x: hidden;
-		white-space: nowrap;
-		text-overflow: ellipsis;
-	}
-	.artistsingle{
-		display: inline-block;
-		width: 200rpx;
-		color: #555555;
-		font-weight: bolder;
-		overflow: hidden;
-		white-space: nowrap;
-		text-overflow: ellipsis;
-	}
-	.love{
-		color:red;
-		margin: 0 20rpx 0 0;
-	}
-	.playButtonsingle{
-		margin-left: 20rpx;
-	}
-	.popup-container{
-		background-color: #555555;
-	}
 
-	.previewimg{
-		width: 10rpx;
-		height: 10rpx;
-	}
+
+/* 歌单区 */
+.playlist-section {
+  padding: 30rpx;
+}
+
+.section-title {
+  font-size: 34rpx;
+  font-weight: 600;
+  margin-bottom: 20rpx;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.sub-title {
+  color: #888;
+  font-size: 26rpx;
+  font-weight: normal;
+}
+
+.playlist-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24rpx;
+}
+
+.playlist-item {
+  background: #fff;
+  border-radius: 20rpx;
+  overflow: hidden;
+  box-shadow: 0 10rpx 20rpx rgba(0, 0, 0, 0.05);
+  transition: transform 0.3s;
+}
+
+.playlist-item:active {
+  transform: scale(0.96);
+}
+
+.playlist-cover-container {
+  position: relative;
+  width: 100%;
+  padding-bottom: 100%;
+  overflow: hidden;
+}
+
+.playlist-cover {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.playlist-info {
+  background-color: linear-gradient(135deg, #87CEFA  0%, #00BFFF  50%, #40E0D0 100%);
+  border-top: rgba(130, 198, 241 ,0.2) 1rpx solid ;
+  padding: 20rpx;
+}
+
+.playlist-name {
+  font-size: 28rpx;
+  font-weight: 600;
+  margin-bottom: 8rpx;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.playlist-count {
+  font-size: 22rpx;
+  color: #888;
+}
+
+/* 创建按钮 */
+.create-music-btn {
+  position: fixed;
+  bottom: 145rpx;
+  right: 40rpx;
+  width: 110rpx;
+  height: 110rpx;
+  background: linear-gradient(135deg, #6e8efb, #a777e3);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 10rpx 24rpx rgba(110, 142, 251, 0.5);
+}
+
+.create-music-btn .icon-add {
+  color: #fff;
+  font-size: 44rpx;
+}
+/* 弹窗 */
+.modal-content {
+	position: absolute;
+	left: 50%;
+	transform: translateX(-50%);
+	bottom: env(safe-area-inset-bottom);
+	background: #fff;
+	width: 85%;
+	border-radius: 30rpx 30rpx 30rpx 30rpx;
+	margin: 0 auto;
+	padding: 40rpx;
+}
+.modal-title {
+	font-size: 32rpx;
+	font-weight: bold;
+}
+
+.modal-close {
+	font-size: 36rpx;
+	color: #888;
+}
+
+.form-group {
+	margin-top: 30rpx;
+}
+
+.form-label {
+	font-size: 28rpx;
+}
+
+.form-input,
+.form-textarea {
+	width: 93%;
+	border: 2rpx solid #ddd;
+	border-radius: 15rpx;
+	padding: 20rpx;
+	margin-top: 10rpx;
+	font-size: 28rpx;
+}
+/* 响应式布局 (小屏改2列，大屏改3列) */
+@media screen and (min-width: 600px) {
+  .playlist-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media screen and (min-width: 900px) {
+  .playlist-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
 </style>

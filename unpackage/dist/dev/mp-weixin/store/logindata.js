@@ -17,6 +17,10 @@ const useUserResStore = common_vendor.defineStore("user", {
     setIsLogined(Vi) {
       this.isLogined = Vi;
     },
+    resetUser() {
+      this.userRes = {};
+      this.isLogined = false;
+    },
     //单属性添加
     setUserResField(key, value) {
       if (this.userRes) {

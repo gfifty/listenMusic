@@ -9,7 +9,7 @@ const _sfc_main = {
       desc: "热爱生活，热爱音乐",
       avatar: "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=200&h=200&q=80"
     });
-    const playlists = common_vendor.ref([
+    common_vendor.ref([
       {
         name: "旅行歌单",
         count: 32,
@@ -34,17 +34,28 @@ const _sfc_main = {
       return {
         a: common_vendor.unref(UserResStore).userRes.userHead,
         b: common_vendor.t(common_vendor.unref(UserResStore).userRes.username),
-        c: common_vendor.t(playlists.value.length),
-        d: common_vendor.f(playlists.value, (playlist, index, i0) => {
+        c: common_vendor.t(_ctx.singleList.length),
+        d: common_vendor.f(_ctx.singleList, (singleList, index, i0) => {
           return {
-            a: playlist.cover,
-            b: common_vendor.t(playlist.name),
-            c: common_vendor.t(playlist.count),
-            d: index,
-            e: common_vendor.o(($event) => _ctx.openPlaylist(playlist.name), index)
+            a: singleList.singlistHead,
+            b: common_vendor.t(singleList.singlistName),
+            c: index,
+            d: common_vendor.o(($event) => _ctx.openPlaylist(singleList.name), index)
           };
         }),
-        e: common_vendor.o((...args) => _ctx.createMusic && _ctx.createMusic(...args))
+        e: common_vendor.o((...args) => _ctx.createMusic && _ctx.createMusic(...args)),
+        f: common_vendor.o((...args) => _ctx.closeModal && _ctx.closeModal(...args)),
+        g: _ctx.newPlaylist.name,
+        h: common_vendor.o(($event) => _ctx.newPlaylist.name = $event.detail.value),
+        i: _ctx.newPlaylist.desc,
+        j: common_vendor.o(($event) => _ctx.newPlaylist.desc = $event.detail.value),
+        k: common_vendor.o((...args) => _ctx.uploadCover && _ctx.uploadCover(...args)),
+        l: common_vendor.o((...args) => _ctx.closeModal && _ctx.closeModal(...args)),
+        m: common_vendor.o((...args) => _ctx.confirmCreate && _ctx.confirmCreate(...args)),
+        n: common_vendor.o(() => {
+        }),
+        o: _ctx.showModal,
+        p: common_vendor.o((...args) => _ctx.closeModal && _ctx.closeModal(...args))
       };
     };
   }
